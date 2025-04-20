@@ -1,0 +1,188 @@
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <ctime>
+#include <fstream>
+#include <limits>
+#include <thread>
+#include <chrono>
+#include <vector>
+
+// --- Color Macros ---
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define BLUE    "\033[34m"
+#define MAGENTA "\033[35m"
+#define CYAN    "\033[36m"
+#define WHITE   "\033[37m"
+
+// --- Story Structure ---
+struct Story {
+    std::string title;
+    std::string content;
+    std::string moral;
+};
+
+// --- Function for storing 30 stories ---
+std::vector<Story> getStories() {
+    std::vector<Story> stories = {
+        {"The Wise Owl", "Once upon a time in a forest, a wise owl lived in a big tree. One day, a rabbit asked the owl for advice on how to escape from predators. The owl shared wisdom and told the rabbit to stay alert and be cautious at all times. The rabbit listened carefully, and from that day, it became the wisest rabbit in the forest.", "Wisdom is the best defense in life."},
+        {"The Golden Goose", "A farmer found a golden goose that laid golden eggs every day. Greed took over, and the farmer killed the goose to get all the gold at once, only to find it was just an ordinary goose inside. He lost everything.", "Greed destroys what is valuable."},
+        {"The Honest Woodcutter", "A poor woodcutter lost his axe in a river. The god of the river offered him a golden and silver axe. The woodcutter refused them and asked for his own. Pleased with his honesty, the god gave him all three axes.", "Honesty is always rewarded."},
+        {"The Lion and the Mouse", "A lion spared a mouse's life, and later the mouse helped the lion escape from a hunter's net. The lion learned that even the smallest act of kindness can return in big ways.", "Never underestimate the power of kindness."},
+        {"The Tortoise and the Hare", "The hare was too confident of winning a race against the slow tortoise. But while the hare napped, the tortoise kept going and won the race.", "Slow and steady wins the race."},
+        {"The Ant and the Grasshopper", "All summer long, the ant worked hard, while the grasshopper played. When winter came, the ant had plenty of food, while the grasshopper had nothing.", "Prepare for the future."},
+        {"The Boy Who Cried Wolf", "A shepherd boy lied to villagers about a wolf attacking his sheep. When a wolf truly came, no one believed him, and the sheep were lost.", "Lying breaks trust and brings consequences."},
+        {"The Crow and the Pitcher", "A thirsty crow found a pitcher with water at the bottom. The crow dropped pebbles in the pitcher until the water rose high enough to drink.", "Even the smallest efforts can lead to success."},
+        {"The Fox and the Grapes", "A hungry fox tried to reach some grapes hanging high, but couldn't. He walked away saying the grapes were probably sour anyway.", "Sometimes we pretend not to want what we can't have."},
+        {"The Dog and His Reflection", "A dog carrying a piece of meat saw his reflection in the water and thought it was another dog with a bigger piece of meat. He dropped his own and tried to get the other one, only to lose everything.", "Don't be greedy or you'll lose what you have."},
+        {"The Fisherman and His Wife", "A fisherman caught a magical fish that granted wishes. His wife kept asking for more and more, until they lost everything, teaching the value of contentment.", "Be careful what you wish for, and learn to be content."},
+        {"The Proud Peacock", "A proud peacock boasted of its beautiful feathers, but when the birds mocked it for not having a beautiful song like the nightingale, it realized that pride leads to loneliness.", "True beauty comes from within."},
+        {"The Farmer and His Sons", "A farmer told his sons that there was treasure buried in the field. They dug for days and found nothing, but their hard work made the land fertile, and they became rich.", "Hard work brings its own rewards."},
+        {"The Lion and the Goat", "A lion and a goat became friends, but when food was scarce, the lion wanted to eat the goat. However, remembering their friendship, the lion let the goat go.", "Friendship is more valuable than hunger."},
+        {"The Stag and the Pool", "A stag was proud of his antlers, but when he saw his reflection in the water, he was ashamed of his skinny legs. Soon, a hunter appeared, and the stag realized his pride had been misplaced.", "Don't let pride blind you to your weaknesses."},
+        {"The Two Friends and the Bear", "Two friends were walking in the forest when a bear attacked. One friend ran up a tree, leaving the other behind. The friend who was left behind was caught by the bear, teaching that true friends don't abandon each other in times of need.", "A true friend stands by you in danger."},
+        {"The Wolf in Sheep's Clothing", "A wolf dressed as a sheep to trick the flock and attack. But the shepherd noticed the wolf's tail sticking out and chased him away.", "Don't try to deceive others, as lies are easily discovered."},
+        {"The Miser and His Gold", "A miser buried his gold to keep it safe, but when thieves came and stole it, he realized he had never even used it.", "Money is useless if it's not put to good use."},
+        {"The Farmer and the Snake", "A farmer found a snake freezing in the cold. He warmed it, but the snake bit him as soon as he was better. The farmer realized that some creatures are simply dangerous, no matter how much you help them.", "Don't help those who would harm you."},
+        {"The Golden Fish", "A fisherman caught a fish that promised to grant wishes in exchange for its life. He asked for wealth, but his greed led to him losing everything. Sometimes less is more.", "Greed can lead to destruction."},
+        {"The Elephant and the Friends", "A group of blind men tried to describe an elephant by feeling different parts of it. They all described it differently and argued. The lesson: different perspectives matter.", "Understand that every perspective has value."},
+        {"The Camel and the Tent", "A camel stuck its head into a tent to escape the cold. Slowly, it crept inside until there was no space left for the owner. Sometimes, small mistakes lead to big problems.", "Avoid letting small problems grow out of control."},
+        {"The Farmer and the Lost Donkey", "A farmer's donkey fell into a well, and he decided to bury it. He threw dirt into the well, but the donkey kept shaking it off and stepping on it until it climbed out.", "Never give up in the face of adversity."},
+        {"The King and His Three Sons", "A king wanted to test which of his three sons was the wisest. He gave them each a task, and the youngest son succeeded by showing kindness and wisdom in every decision.", "Wisdom is not just about knowledge, but about compassion."},
+        {"The Cheetah and the Deer", "A cheetah chased a deer for food. But as they raced, the cheetah realized it was tiring itself out and let the deer go, learning the value of patience and persistence.", "Patience can often achieve more than haste."},
+        {"The Thirsty Pigeon", "A pigeon found a bowl of water, but it was too high. The pigeon dropped pebbles into it until the water rose and it could drink.", "Small efforts can lead to big rewards."},
+        {"The Mouse and the Lion", "A lion was caught in a hunter's net, and a small mouse gnawed through the ropes to set him free. The lion learned that even small creatures can make a big difference.", "Never underestimate the power of kindness."}
+    };
+
+    return stories;
+}
+
+// --- AI-powered Personalized Learning Platform ---
+void personalizedLearning() {
+    std::cout << GREEN << "\n[Personalized Learning Platform]" << RESET << std::endl;
+    std::string subject;
+    int score;
+    std::cout << "Enter subject name: ";
+    std::getline(std::cin, subject);
+    std::cout << "Enter your latest score for " << subject << ": ";
+    std::cin >> score;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    if (score < 50) {
+        std::cout << RED << "It seems like you're struggling in " << subject << ". Try revising the basics and seek additional resources for better understanding." << RESET << std::endl;
+    } else {
+        std::cout << GREEN << "Great job! Keep practicing " << subject << " and challenge yourself further." << RESET << std::endl;
+    }
+}
+
+// --- Predictive AI for Learning Difficulties ---
+void learningDifficultyPredictor() {
+    std::cout << CYAN << "\n[Learning Difficulty Predictor]" << RESET << std::endl;
+    int numberOfMistakes;
+    std::cout << "Enter the number of mistakes you made in your last test: ";
+    std::cin >> numberOfMistakes;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    if (numberOfMistakes > 5) {
+        std::cout << YELLOW << "It seems you're facing difficulties. Maybe review your weak areas and ask for help where needed." << RESET << std::endl;
+    } else {
+        std::cout << GREEN << "You're on the right track! Keep practicing and you'll improve." << RESET << std::endl;
+    }
+}
+
+// --- AI-powered Well-being Assistant ---
+void wellBeingAssistant() {
+    std::cout << MAGENTA << "\n[Well-being Assistant]" << RESET << std::endl;
+    int screenTime;
+    std::cout << "How many hours have you spent on screens today? ";
+    std::cin >> screenTime;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    if (screenTime > 3) {
+        std::cout << YELLOW << "You should take a break! Try some physical activities, like stretching or walking." << RESET << std::endl;
+    } else {
+        std::cout << GREEN << "You're doing well! Keep a healthy balance between study and relaxation." << RESET << std::endl;
+    }
+}
+
+// --- AI Study Chatbot ---
+void studyChatbot() {
+    std::cout << CYAN << "\n[Study Chatbot]" << RESET << std::endl;
+    std::string subject;
+    std::cout << "What subject are you struggling with? ";
+    std::getline(std::cin, subject);
+    std::cout << "Here are some study tips for " << subject << ":" << std::endl;
+    std::cout << "- Break the material into small chunks.\n";
+    std::cout << "- Practice with mock tests.\n";
+    std::cout << "- Take breaks every 45 minutes.\n";
+    std::cout << "- Try explaining the concept to someone else.\n";
+}
+
+// --- AI Nutrition Assistant ---
+void nutritionAssistant() {
+    std::cout << MAGENTA << "\n[Nutrition Assistant]" << RESET << std::endl;
+    std::string foodItem;
+    std::cout << "Enter a food item to get nutrition tips: ";
+    std::getline(std::cin, foodItem);
+    std::cout << "A healthy serving of " << foodItem << " can be a great source of vitamins and energy. Pair it with fruits or vegetables for a balanced diet!" << std::endl;
+}
+
+// --- Main Menu ---
+int main() {
+    srand(time(0));
+    std::vector<Story> stories = getStories();
+
+    while (true) {
+        std::cout << BLUE << "\nWelcome to the AI Learning & Health Assistant!" << RESET << std::endl;
+        std::cout << "1. Random Story\n";
+        std::cout << "2. Personalized Learning Platform\n";
+        std::cout << "3. Learning Difficulty Predictor\n";
+        std::cout << "4. Well-being Assistant\n";
+        std::cout << "5. Study Chatbot\n";
+        std::cout << "6. Nutrition Assistant\n";
+        std::cout << "7. Exit\n";
+        std::cout << "Choose an option: ";
+        
+        int choice;
+        std::cin >> choice;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear the input buffer
+
+        switch (choice) {
+            case 1: {
+                int randomIndex = rand() % stories.size();
+                std::cout << "\nStory: " << stories[randomIndex].title << std::endl;
+                std::cout << stories[randomIndex].content << std::endl;
+                std::cout << "Moral: " << stories[randomIndex].moral << std::endl;
+                break;
+            }
+            case 2: {
+                personalizedLearning();
+                break;
+            }
+            case 3: {
+                learningDifficultyPredictor();
+                break;
+            }
+            case 4: {
+                wellBeingAssistant();
+                break;
+            }
+            case 5: {
+                studyChatbot();
+                break;
+            }
+            case 6: {
+                nutritionAssistant();
+                break;
+            }
+            case 7:
+                std::cout << RED << "Exiting the program.\n" << RESET;
+                return 0;
+            default:
+                std::cout << YELLOW << "Invalid choice. Please try again.\n" << RESET;
+        }
+    }
+}
